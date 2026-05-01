@@ -1,5 +1,8 @@
 # Visual Time & Distance Scheduler: The "No-Number" Clock
 
+[![Watch the video](https://img.youtube.com/vi/xWCVrFAyhkw/maxresdefault.jpg)](https://youtu.be/xWCVrFAyhkw)
+*(Click the image above to watch the full video demonstration)*
+
 ## 🌟 The Goal: Making Time Tangible
 
 Time is a highly abstract concept. Traditional clocks—whether digital numbers or analog hands—require a level of literacy and mathematical understanding that young children, the elderly, or individuals with certain cognitive differences may not possess. 
@@ -7,6 +10,9 @@ Time is a highly abstract concept. Traditional clocks—whether digital numbers 
 Telling a toddler "we leave in 45 minutes" or showing them a timer often leads to frustration because numbers in a circle don't mean anything to them. 
 
 **The Visual Time & Distance Scheduler solves this by making time physical.** Instead of relying on numbers, this device slowly moves a physical, tangible object (like a cardboard school bus, a toy, or a token) along a string towards a destination. 
+
+![Full Machine View](images/no%20clock%20whole.jpg)
+*The complete Visual Time & Distance Scheduler setup.*
 
 The user instantly understands: **"When the bus reaches the house, it's time to go."** It provides a constant-motion visual countdown, making the concept of "time remaining" intuitively accessible to anyone, regardless of their ability to read.
 
@@ -24,6 +30,10 @@ At its core, this system is a highly precise, ultra-slow robotic winch. Here is 
 2. **Time Math:** The system uses a highly accurate Real-Time Clock (RTC) chip to calculate the exact number of minutes between the Start and End times, even safely handling overnight schedules. 
 
 3. **The "Fractional RPM" Magic:** This is where the core software logic shines. Standard software libraries for motors only understand speed in whole numbers (1 RPM, 2 RPM, etc.). However, moving a toy 150 centimeters over an entire hour requires an incredibly slow, *sub-integer* speed (like 0.3 RPM). 
+
+   ![Fractional RPM Close Up](images/no%20number%20close%20up.jpg)
+   *Detail view: Achieving fractional rotations using a standard stepper library.*
+
    * Our program uses a custom algorithm that mathematically "tricks" the motor library. It calculates a fractional speed, rounds it up to a safe integer, and then scales down the *steps per revolution* to force the motor to pulse at a perfectly slow, steady, and accurate crawl. 
 
 4. **Safe Execution:** Once started, the system locks into a dedicated running mode. It includes safety checks to ensure the math never crashes (preventing "divide-by-zero" errors if the requested speed is exceptionally slow) and steadily drives the object to its destination right on time.
